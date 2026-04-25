@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Priyadarshani Shewale — LinkedIn Messaging Redesign</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue-900: #042C53;
+      --blue-800: #0C447C;
+      --blue-600: #185FA5;
+      --blue-400: #378ADD;
+      --blue-200: #85B7EB;
+      --blue-100: #B5D4F4;
+      --blue-50: #E6F1FB;
+
+      --teal-600: #0F6E56;
+      --teal-400: #1D9E75;
+      --teal-100: #9FE1CB;
+      --teal-50: #E1F5EE;
+
+      --red-600: #A32D2D;
+      --red-400: #E24B4A;
+      --red-50: #FCEBEB;
+
+      --gray-900: #1A1A1A;
+      --gray-800: #2C2C2C;
+      --gray-600: #5F5E5A;
+      --gray-400: #888780;
+      --gray-200: #B4B2A9;
+      --gray-100: #D3D1C7;
+      --gray-50: #F5F4F0;
+      --white: #FFFFFF;
+
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-50);
+      color: var(--gray-900);
+      font-size: 16px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--blue-900);
+      padding: 80px 0 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue-200);
+      border: 1px solid rgba(133, 183, 235, 0.3);
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 32px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 6vw, 76px);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+      max-width: 700px;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--blue-400);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--blue-200);
+      font-weight: 300;
+      max-width: 520px;
+      margin-bottom: 56px;
+      line-height: 1.6;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+
+    .meta-item label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue-200);
+      margin-bottom: 6px;
+    }
+
+    .meta-item span {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .hero-phone-row {
+      display: flex;
+      gap: 24px;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .phone-frame {
+      width: 220px;
+      background: var(--white);
+      border-radius: 28px;
+      border: 8px solid rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .phone-frame.main {
+      width: 250px;
+    }
+
+    .phone-frame.faded {
+      opacity: 0.4;
+    }
+
+    /* SECTION */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 96px 48px;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue-600);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .section-body {
+      font-size: 16px;
+      color: var(--gray-600);
+      max-width: 640px;
+      line-height: 1.75;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--gray-100);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* PROBLEM */
+    .problem-bg {
+      background: var(--white);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 56px;
+    }
+
+    .problem-card {
+      border: 1px solid var(--gray-100);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .problem-card-header {
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .badge-red {
+      background: var(--red-50);
+      color: var(--red-600);
+    }
+
+    .badge-green {
+      background: var(--teal-50);
+      color: var(--teal-600);
+    }
+
+    .problem-card-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    .problem-card-body {
+      padding: 24px;
+    }
+
+    .issue-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .issue-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .issue-icon.red {
+      background: var(--red-50);
+    }
+
+    .issue-icon.green {
+      background: var(--teal-50);
+    }
+
+    .issue-text h4 {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .issue-text p {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* BADGE DIAGRAM */
+    .badge-diagram {
+      background: var(--blue-900);
+      border-radius: 20px;
+      padding: 48px;
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .badge-diagram::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .badge-diagram>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge-side {
+      text-align: center;
+      flex: 1;
+    }
+
+    .badge-visual {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 2px;
+      margin-bottom: 20px;
+    }
+
+    .msg-icon-large {
+      font-size: 48px;
+      line-height: 1;
+    }
+
+    .badge-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -4px;
+    }
+
+    .badge-num.wrong {
+      background: var(--red-400);
+      color: var(--white);
+    }
+
+    .badge-num.right {
+      background: var(--teal-400);
+      color: var(--white);
+    }
+
+    .badge-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .badge-label.wrong {
+      color: #f09595;
+    }
+
+    .badge-label.right {
+      color: var(--teal-100);
+    }
+
+    .badge-desc {
+      font-size: 14px;
+      color: var(--blue-200);
+      line-height: 1.6;
+      max-width: 220px;
+      margin: 0 auto;
+    }
+
+    .badge-arrow {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--blue-400);
+      flex-shrink: 0;
+    }
+
+    /* PALETTE */
+    .palette-bg {
+      background: var(--gray-900);
+    }
+
+    .palette-section .section-title {
+      color: var(--white);
+    }
+
+    .palette-section .section-body {
+      color: var(--gray-200);
+    }
+
+    .palette-section .section-tag {
+      color: var(--blue-400);
+    }
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .palette-group-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 12px;
+    }
+
+    .color-swatches {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .swatch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+
+    .swatch-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .swatch-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .swatch-name {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-400);
+    }
+
+    .swatch-role {
+      font-size: 11px;
+      color: var(--gray-400);
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    /* TYPOGRAPHY */
+    .type-bg {
+      background: var(--white);
+    }
+
+    .type-showcase {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    .type-family {
+      border: 1px solid var(--gray-100);
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .type-family-name {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 24px;
+    }
+
+    .type-specimen {
+      margin-bottom: 20px;
+    }
+
+    .type-specimen-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray-200);
+      margin-bottom: 8px;
+    }
+
+    .type-scale {
+      margin-top: 32px;
+      border-top: 1px solid var(--gray-100);
+      padding-top: 24px;
+    }
+
+    .scale-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--gray-50);
+    }
+
+    .scale-sample {
+      font-family: var(--font-display);
+      color: var(--gray-900);
+    }
+
+    .scale-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray-400);
+      text-align: right;
+    }
+
+    /* COMPONENTS */
+    .components-bg {
+      background: var(--gray-50);
+    }
+
+    .components-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 56px;
+    }
+
+    .component-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .component-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 20px;
+    }
+
+    .bubble-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .demo-bubble {
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 85%;
+      font-family: var(--font-body);
+      font-weight: 300;
+    }
+
+    .demo-bubble.incoming {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      color: var(--gray-900);
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+    }
+
+    .demo-bubble.outgoing {
+      background: var(--blue-600);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+    }
+
+    .avatar-demo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .demo-avatar {
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .num-badge {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* PRINCIPLES */
+    .principles-bg {
+      background: var(--blue-900);
+    }
+
+    .principles-section .section-title {
+      color: var(--white);
+    }
+
+    .principles-section .section-tag {
+      color: var(--blue-400);
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 56px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .principle {
+      padding: 36px 28px;
+      background: rgba(255, 255, 255, 0.03);
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .principle:last-child {
+      border-right: none;
+    }
+
+    .principle-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.06);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .principle-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .principle-body {
+      font-size: 13px;
+      color: var(--blue-200);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* SPACING */
+    .spacing-bg {
+      background: var(--white);
+    }
+
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--gray-50);
+    }
+
+    .spacing-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .spacing-bar {
+      height: 8px;
+      background: var(--blue-100);
+      border-radius: 4px;
+    }
+
+    .spacing-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray-400);
+      min-width: 60px;
+    }
+
+    .spacing-use {
+      font-size: 13px;
+      color: var(--gray-600);
+      min-width: 240px;
+      font-weight: 300;
+    }
+
+    /* MINI PHONE COMPONENTS */
+    .mini-header {
+      background: var(--white);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .mini-av {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--blue-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--white);
+      font-family: var(--font-display);
+      flex-shrink: 0;
+    }
+
+    .mini-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-900);
+      font-family: var(--font-display);
+    }
+
+    .mini-sub {
+      font-size: 9px;
+      color: var(--gray-400);
+    }
+
+    .mini-messages {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--gray-50);
+      min-height: 170px;
+    }
+
+    .mini-bubble {
+      padding: 7px 10px;
+      border-radius: 10px;
+      font-size: 10px;
+      line-height: 1.4;
+      max-width: 80%;
+      font-family: var(--font-body);
+    }
+
+    .mini-bubble.in {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      color: var(--gray-900);
+      border-bottom-left-radius: 2px;
+      align-self: flex-start;
+    }
+
+    .mini-bubble.out {
+      background: var(--blue-600);
+      color: var(--white);
+      border-bottom-right-radius: 2px;
+      align-self: flex-end;
+    }
+
+    .mini-typing {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      padding: 7px 10px;
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 10px;
+      border-bottom-left-radius: 2px;
+      width: fit-content;
+    }
+
+    .mini-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gray-200);
+    }
+
+    .mini-input {
+      background: var(--white);
+      border-top: 1px solid var(--gray-100);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mini-field {
+      flex: 1;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: 12px;
+      padding: 5px 10px;
+      font-size: 9px;
+      color: var(--gray-400);
+      font-family: var(--font-body);
+    }
+
+    .mini-send {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--blue-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--gray-900);
+      padding: 64px 48px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+
+    .footer-brand span {
+      color: var(--blue-400);
+    }
+
+    .footer-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--gray-600);
+      text-align: right;
+    }
+
+    .footer-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .footer-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--gray-400);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-tag">UX · Case Study · 2026</div>
+      <h1 class="hero-title">Rethinking <em>LinkedIn</em><br>Messaging</h1>
+      <p class="hero-sub">A focused redesign of LinkedIn's chat interface — fixing notification logic, improving visual
+        hierarchy, and making professional conversations feel natural.</p>
+      <div class="hero-meta">
+        <div class="meta-item"><label>Designer</label><span>Priyadarshani Shewale</span></div>
+        <div class="meta-item"><label>Role</label><span>UX Designer</span></div>
+        <div class="meta-item"><label>Platform</label><span>Mobile · Android</span></div>
+        <div class="meta-item"><label>Tools</label><span>Google Stitch</span></div>
+        <div class="meta-item"><label>Year</label><span>2026</span></div>
+      </div>
+
+      <div class="hero-phone-row">
+        <div class="phone-frame faded">
+          <div class="mini-header">
+            <div class="mini-av">PS</div>
+            <div>
+              <div class="mini-name">Priyadarshani Shewale</div>
+              <div class="mini-sub">Active now</div>
+            </div>
+          </div>
+          <div class="mini-messages">
+            <div class="mini-bubble in">Hi! Saw your fintech dashboard work.</div>
+            <div class="mini-bubble out">Thanks for reaching out!</div>
+            <div class="mini-bubble out">Happy to connect.</div>
+            <div class="mini-typing">
+              <div class="mini-dot"></div>
+              <div class="mini-dot"></div>
+              <div class="mini-dot"></div>
+            </div>
+          </div>
+          <div class="mini-input">
+            <div class="mini-field">Write a message...</div>
+            <div class="mini-send"><svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z" fill="white" />
+              </svg></div>
+          </div>
+        </div>
+
+        <div class="phone-frame main">
+          <div class="mini-header">
+            <div class="mini-av" style="width:32px;height:32px;font-size:11px;">PS</div>
+            <div style="flex:1;">
+              <div class="mini-name" style="font-size:12px;">Priyadarshani Shewale</div>
+              <div class="mini-sub" style="color:#1D9E75;">● Active now</div>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5">
+              <circle cx="12" cy="5" r="1" />
+              <circle cx="12" cy="12" r="1" />
+              <circle cx="12" cy="19" r="1" />
+            </svg>
+          </div>
+          <div class="mini-messages" style="min-height:210px; gap:10px;">
+            <div
+              style="text-align:center;font-size:8px;color:#888;font-family:var(--font-mono);letter-spacing:1.5px;text-transform:uppercase;background:#f0eeea;padding:2px 8px;border-radius:10px;align-self:center;">
+              Today</div>
+            <div class="mini-bubble in">Hi! I came across your profile and loved your fintech dashboard work.</div>
+            <div class="mini-bubble out">Thanks for reaching out!</div>
+            <div class="mini-bubble out" style="border-top-right-radius:2px;">What would you like to discuss?</div>
+            <div class="mini-bubble in">We're hiring a Senior UX Designer — thought you'd be a great fit!</div>
+            <div class="mini-typing">
+              <div class="mini-dot"></div>
+              <div class="mini-dot"></div>
+              <div class="mini-dot"></div>
+            </div>
+          </div>
+          <div class="mini-input">
+            <div class="mini-field">Write a message...</div>
+            <div class="mini-send"><svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z" fill="white" />
+              </svg></div>
+          </div>
+        </div>
+
+        <div class="phone-frame faded">
+          <div class="mini-header">
+            <div class="mini-av">SM</div>
+            <div>
+              <div class="mini-name">Sarah Mitchell</div>
+              <div class="mini-sub">Product Manager</div>
+            </div>
+          </div>
+          <div class="mini-messages">
+            <div class="mini-bubble in">Would you be open to collaborating?</div>
+            <div class="mini-bubble out">Absolutely, let's set up a call.</div>
+            <div class="mini-bubble in">Great! Thursday work for you?</div>
+          </div>
+          <div class="mini-input">
+            <div class="mini-field">Write a message...</div>
+            <div class="mini-send"><svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z" fill="white" />
+              </svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <div class="problem-bg">
+    <div class="section">
+      <div class="section-tag">01 — Problem</div>
+      <h2 class="section-title">What's broken<br>with LinkedIn's chat</h2>
+      <p class="section-body">LinkedIn's messaging interface has accumulated usability debt. Misleading badge counts,
+        flat message hierarchy, missing read receipts, and a cluttered compose bar all create unnecessary friction.</p>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-card-header">
+            <span class="badge badge-red">Before</span>
+            <span class="problem-card-title">Current issues</span>
+          </div>
+          <div class="problem-card-body">
+            <div class="issue-item">
+              <div class="issue-icon red">✕</div>
+              <div class="issue-text">
+                <h4>Misleading badge count</h4>
+                <p>Counts total messages, not unique senders. One person sending 3 messages shows "3" — creating false
+                  urgency.</p>
+              </div>
+            </div>
+            <div class="issue-item">
+              <div class="issue-icon red">✕</div>
+              <div class="issue-text">
+                <h4>Flat message hierarchy</h4>
+                <p>Every message gets a timestamp and full avatar, making threads hard to scan and visually noisy.</p>
+              </div>
+            </div>
+            <div class="issue-item">
+              <div class="issue-icon red">✕</div>
+              <div class="issue-text">
+                <h4>No read receipts</h4>
+                <p>Senders can't tell if a message has been seen, leading to repeat follow-ups and uncertainty.</p>
+              </div>
+            </div>
+            <div class="issue-item">
+              <div class="issue-icon red">✕</div>
+              <div class="issue-text">
+                <h4>Cluttered compose area</h4>
+                <p>All actions are crowded at the same visual level with no clear hierarchy between tools.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-card-header">
+            <span class="badge badge-green">After</span>
+            <span class="problem-card-title">Design solutions</span>
+          </div>
+          <div class="problem-card-body">
+            <div class="issue-item">
+              <div class="issue-icon green">✓</div>
+              <div class="issue-text">
+                <h4>Conversation-count badge</h4>
+                <p>Badge now reflects unique users with unread messages — one conversation = one count, regardless of
+                  message volume.</p>
+              </div>
+            </div>
+            <div class="issue-item">
+              <div class="issue-icon green">✓</div>
+              <div class="issue-text">
+                <h4>Grouped message threads</h4>
+                <p>Consecutive messages from the same person cluster visually. One avatar and one timestamp per group.
+                </p>
+              </div>
+            </div>
+            <div class="issue-item">
+              <div class="issue-icon green">✓</div>
+              <div class="issue-text">
+                <h4>Read receipts added</h4>
+                <p>Green checkmark confirms when the recipient has read your last message, reducing ambiguity.</p>
+              </div>
+            </div>
+            <div class="issue-item">
+              <div class="issue-icon green">✓</div>
+              <div class="issue-text">
+                <h4>Structured input bar</h4>
+                <p>Media actions separated from emoji with a divider. Compose field and send button are clearly
+                  prominent.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badge diagram -->
+      <div class="badge-diagram">
+        <div class="badge-side">
+          <div class="badge-visual">
+            <span class="msg-icon-large">💬</span>
+            <div class="badge-num wrong">3</div>
+          </div>
+          <div class="badge-label wrong">Current behaviour</div>
+          <p class="badge-desc">1 person sends 3 messages → badge shows <strong style="color:#f09595">3</strong></p>
+        </div>
+        <div class="badge-arrow">→</div>
+        <div class="badge-side">
+          <div class="badge-visual">
+            <span class="msg-icon-large">💬</span>
+            <div class="badge-num right">1</div>
+          </div>
+          <div class="badge-label right">Proposed fix</div>
+          <p class="badge-desc">1 person sends 3 messages → badge shows <strong style="color:var(--teal-100)">1</strong>
+          </p>
+        </div>
+        <div style="flex:1.5; padding-left:40px; border-left:1px solid rgba(255,255,255,0.08);">
+          <p
+            style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--white);margin-bottom:12px;">
+            The logic error</p>
+          <p style="font-size:14px;color:var(--blue-200);line-height:1.7;font-weight:300;">Notification badges should
+            represent the <em>number of people</em> who need your attention, not content volume. WhatsApp, iMessage, and
+            Telegram all do this correctly — LinkedIn is the outlier.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- COLOUR PALETTE -->
+  <div class="palette-bg">
+    <div class="section palette-section">
+      <div class="section-tag">02 — Colour Palette</div>
+      <h2 class="section-title">Colour system</h2>
+      <p class="section-body" style="color:var(--gray-400);">A restrained palette built on three functional families —
+        Primary Blue, Success Teal, and Neutral Gray — each with clearly defined roles across the interface.</p>
+
+      <div class="palette-grid">
+        <div class="palette-group">
+          <div class="palette-group-label">Primary — Blue</div>
+          <div class="color-swatches">
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#042C53;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Blue 900</div>
+                <div class="swatch-hex">#042C53</div>
+              </div>
+              <div class="swatch-role">Hero bg</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#0C447C;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Blue 800</div>
+                <div class="swatch-hex">#0C447C</div>
+              </div>
+              <div class="swatch-role">Deep accent</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);">
+              <div class="swatch-dot" style="background:#185FA5;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Blue 600 ★</div>
+                <div class="swatch-hex">#185FA5</div>
+              </div>
+              <div class="swatch-role">Primary · sent bubbles</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#378ADD;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Blue 400</div>
+                <div class="swatch-hex">#378ADD</div>
+              </div>
+              <div class="swatch-role">Hover / links</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#B5D4F4;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Blue 100</div>
+                <div class="swatch-hex">#B5D4F4</div>
+              </div>
+              <div class="swatch-role">Hero body text</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#E6F1FB; border:1px solid rgba(255,255,255,0.1);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Blue 50</div>
+                <div class="swatch-hex">#E6F1FB</div>
+              </div>
+              <div class="swatch-role">Sent text colour</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="palette-group">
+          <div class="palette-group-label">Success — Teal</div>
+          <div class="color-swatches">
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#0F6E56;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Teal 600</div>
+                <div class="swatch-hex">#0F6E56</div>
+              </div>
+              <div class="swatch-role">Deep status</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);">
+              <div class="swatch-dot" style="background:#1D9E75;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Teal 400 ★</div>
+                <div class="swatch-hex">#1D9E75</div>
+              </div>
+              <div class="swatch-role">Active dot · read tick</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#9FE1CB;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Teal 100</div>
+                <div class="swatch-hex">#9FE1CB</div>
+              </div>
+              <div class="swatch-role">Success text on dark</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#E1F5EE; border:1px solid rgba(255,255,255,0.08);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Teal 50</div>
+                <div class="swatch-hex">#E1F5EE</div>
+              </div>
+              <div class="swatch-role">Success badge bg</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="palette-group">
+          <div class="palette-group-label">Neutral — Gray</div>
+          <div class="color-swatches">
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#1A1A1A;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Gray 900</div>
+                <div class="swatch-hex">#1A1A1A</div>
+              </div>
+              <div class="swatch-role">Body text</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#5F5E5A;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Gray 600</div>
+                <div class="swatch-hex">#5F5E5A</div>
+              </div>
+              <div class="swatch-role">Secondary text</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#888780;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Gray 400</div>
+                <div class="swatch-hex">#888780</div>
+              </div>
+              <div class="swatch-role">Placeholder · icons</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#D3D1C7;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Gray 100</div>
+                <div class="swatch-hex">#D3D1C7</div>
+              </div>
+              <div class="swatch-role">Borders · dividers</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#F5F4F0; border:1px solid rgba(255,255,255,0.08);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Gray 50</div>
+                <div class="swatch-hex">#F5F4F0</div>
+              </div>
+              <div class="swatch-role">Page · msg area bg</div>
+            </div>
+            <div class="swatch" style="background:rgba(255,255,255,0.04);">
+              <div class="swatch-dot" style="background:#FFFFFF; border:1px solid rgba(255,255,255,0.15);"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">White</div>
+                <div class="swatch-hex">#FFFFFF</div>
+              </div>
+              <div class="swatch-role">Header · input bg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="type-bg">
+    <div class="section">
+      <div class="section-tag">03 — Typography</div>
+      <h2 class="section-title">Type system</h2>
+      <p class="section-body">Two typefaces, two roles. Syne brings authority and structure to headings. DM Sans keeps
+        message content warm, readable, and approachable.</p>
+
+      <div class="type-showcase">
+        <div class="type-family">
+          <div class="type-family-name">Display — Syne · google fonts</div>
+          <div class="type-specimen">
+            <div class="type-specimen-label">800 · Extra bold</div>
+            <div
+              style="font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--gray-900);letter-spacing:-1px;line-height:1.1;">
+              Aa Bb Cc Dd</div>
+          </div>
+          <div class="type-specimen">
+            <div class="type-specimen-label">700 · Bold — section heading</div>
+            <div
+              style="font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--gray-900);letter-spacing:-0.5px;">
+              Rethinking LinkedIn</div>
+          </div>
+          <div class="type-specimen">
+            <div class="type-specimen-label">600 · Semi bold — contact name</div>
+            <div style="font-family:var(--font-display);font-size:18px;font-weight:600;color:var(--gray-900);">
+              Priyadarshani Shewale</div>
+          </div>
+
+          <div class="type-scale">
+            <div class="scale-row">
+              <span class="scale-sample"
+                style="font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1;">76px</span>
+              <div class="scale-meta">
+                <div>Hero title</div>
+                <div>800 · −1.5px tracking</div>
+              </div>
+            </div>
+            <div class="scale-row">
+              <span class="scale-sample" style="font-size:30px;font-weight:700;letter-spacing:-0.5px;">44px</span>
+              <div class="scale-meta">
+                <div>Section title</div>
+                <div>700 · −0.5px tracking</div>
+              </div>
+            </div>
+            <div class="scale-row">
+              <span class="scale-sample" style="font-size:20px;font-weight:600;">20px</span>
+              <div class="scale-meta">
+                <div>Card heading</div>
+                <div>600 · 0px tracking</div>
+              </div>
+            </div>
+            <div class="scale-row">
+              <span class="scale-sample" style="font-size:16px;font-weight:600;">15px</span>
+              <div class="scale-meta">
+                <div>Contact name</div>
+                <div>600 · 0px tracking</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="type-family">
+          <div class="type-family-name">Body — DM Sans · google fonts</div>
+          <div class="type-specimen">
+            <div class="type-specimen-label">300 · Light — message bubble text</div>
+            <div
+              style="font-family:var(--font-body);font-size:14px;font-weight:300;color:var(--gray-900);line-height:1.6;max-width:280px;">
+              Hi! I came across your profile and was impressed by your work on the fintech dashboard.</div>
+          </div>
+          <div class="type-specimen">
+            <div class="type-specimen-label">400 · Regular — meta & labels</div>
+            <div style="font-family:var(--font-body);font-size:13px;font-weight:400;color:var(--gray-600);">Product Lead
+              · Infosys · Active now</div>
+          </div>
+          <div class="type-specimen">
+            <div class="type-specimen-label">300 italic · placeholder text</div>
+            <div
+              style="font-family:var(--font-body);font-size:13px;font-weight:300;font-style:italic;color:var(--gray-400);">
+              Write a message...</div>
+          </div>
+
+          <div class="type-scale">
+            <div class="scale-row">
+              <span class="scale-sample"
+                style="font-family:var(--font-body);font-size:28px;font-weight:300;">17px</span>
+              <div class="scale-meta">
+                <div>Hero body</div>
+                <div>300 · 1.6 leading</div>
+              </div>
+            </div>
+            <div class="scale-row">
+              <span class="scale-sample"
+                style="font-family:var(--font-body);font-size:22px;font-weight:400;">16px</span>
+              <div class="scale-meta">
+                <div>Section body</div>
+                <div>400 · 1.75 leading</div>
+              </div>
+            </div>
+            <div class="scale-row">
+              <span class="scale-sample"
+                style="font-family:var(--font-body);font-size:18px;font-weight:300;">13px</span>
+              <div class="scale-meta">
+                <div>Message bubble</div>
+                <div>300 · 1.5 leading</div>
+              </div>
+            </div>
+            <div class="scale-row">
+              <span class="scale-sample"
+                style="font-family:var(--font-body);font-size:14px;font-weight:400;">11px</span>
+              <div class="scale-meta">
+                <div>Timestamp · subtitle</div>
+                <div>400 · 1.4 leading</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="margin-top:20px; padding:14px 16px; background:var(--gray-50); border-radius:10px; border:1px solid var(--gray-100);">
+            <div class="type-specimen-label" style="margin-bottom:8px;">DM Mono — tags, labels, hex codes</div>
+            <div
+              style="font-family:var(--font-mono);font-size:12px;color:var(--gray-600);letter-spacing:2px;text-transform:uppercase;">
+              UX · CASE STUDY · 2026</div>
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--gray-400);margin-top:4px;">#185FA5 ·
+              10px · 2px letter-spacing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- COMPONENTS -->
+  <div class="components-bg">
+    <div class="section">
+      <div class="section-tag">04 — Components</div>
+      <h2 class="section-title">UI components</h2>
+      <p class="section-body">Every component is built for scannability at small sizes, with clear state
+        differentiation, consistent radius logic, and minimal decoration.</p>
+
+      <div class="components-grid">
+        <!-- Bubbles -->
+        <div class="component-card">
+          <div class="component-title">Message bubbles</div>
+          <div class="bubble-demo">
+            <div class="demo-bubble incoming">Hi! Saw your work on the fintech dashboard.</div>
+            <div class="demo-bubble incoming" style="border-bottom-left-radius:16px; border-top-left-radius:4px;">Would
+              you be open to a quick chat?</div>
+            <div class="demo-bubble outgoing">Thanks for reaching out!</div>
+            <div class="demo-bubble outgoing" style="border-bottom-right-radius:16px; border-top-right-radius:4px;">
+              Happy to connect.</div>
+          </div>
+          <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--gray-100);">
+            <div
+              style="font-family:var(--font-mono);font-size:9px;color:var(--gray-400);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">
+              Radius logic</div>
+            <div style="font-size:12px;color:var(--gray-600);line-height:1.6;font-weight:300;">16px base · First in
+              group: tail corner 4px · Mid group: both tail corners 4px · Single: all 16px</div>
+          </div>
+        </div>
+
+        <!-- Avatars -->
+        <div class="component-card">
+          <div class="component-title">Avatars & presence</div>
+          <div class="avatar-demo" style="margin-bottom:20px;">
+            <div style="position:relative;">
+              <div class="demo-avatar"
+                style="width:48px;height:48px;background:var(--blue-600);color:#E6F1FB;font-size:15px;">PS</div>
+              <div
+                style="position:absolute;bottom:1px;right:1px;width:12px;height:12px;border-radius:50%;background:#1D9E75;border:2px solid white;">
+              </div>
+            </div>
+            <div class="demo-avatar"
+              style="width:38px;height:38px;background:var(--gray-100);color:var(--gray-600);font-size:12px;">SM</div>
+            <div class="demo-avatar"
+              style="width:28px;height:28px;background:var(--blue-600);color:#E6F1FB;font-size:10px;">PS</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray-600);font-weight:300;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#1D9E75;"></div>Active now · #1D9E75
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray-600);font-weight:300;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--gray-400);"></div>Away · #888780
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray-600);font-weight:300;">
+              <div
+                style="width:8px;height:8px;border-radius:50%;background:var(--gray-100);border:1px solid var(--gray-200);">
+              </div>Offline · #D3D1C7
+            </div>
+          </div>
+        </div>
+
+        <!-- Input bar -->
+        <div class="component-card">
+          <div class="component-title">Input bar</div>
+          <div
+            style="background:var(--gray-50);border:1px solid var(--gray-100);border-radius:24px;padding:10px 16px;font-size:13px;color:var(--gray-400);font-family:var(--font-body);font-weight:300;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <span>Write a message...</span>
+            <div
+              style="width:32px;height:32px;border-radius:50%;background:var(--blue-600);display:flex;align-items:center;justify-content:center;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z" fill="white" />
+              </svg>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;padding-top:14px;border-top:1px solid var(--gray-100);">
+            <div style="text-align:center;">
+              <div
+                style="width:32px;height:32px;border-radius:8px;background:var(--gray-50);border:1px solid var(--gray-100);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5">
+                  <path
+                    d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
+                </svg>
+              </div>
+              <div style="font-size:9px;color:var(--gray-400);font-family:var(--font-mono);">Attach</div>
+            </div>
+            <div style="text-align:center;">
+              <div
+                style="width:32px;height:32px;border-radius:8px;background:var(--gray-50);border:1px solid var(--gray-100);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+              </div>
+              <div style="font-size:9px;color:var(--gray-400);font-family:var(--font-mono);">Image</div>
+            </div>
+            <div style="text-align:center;">
+              <div
+                style="width:32px;height:32px;border-radius:8px;background:var(--gray-50);border:1px solid var(--gray-100);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M8 13s1.5 2 4 2 4-2 4-2" />
+                  <line x1="9" y1="9" x2="9.01" y2="9" />
+                  <line x1="15" y1="9" x2="15.01" y2="9" />
+                </svg>
+              </div>
+              <div style="font-size:9px;color:var(--gray-400);font-family:var(--font-mono);">Emoji</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge -->
+        <div class="component-card">
+          <div class="component-title">Notification badge</div>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--gray-600);font-weight:300;">
+              <div class="num-badge" style="background:var(--red-400);color:white;">3</div>
+              <span style="text-decoration:line-through;color:var(--gray-200);">3 messages · 1 person</span>
+            </div>
+            <div style="height:1px;background:var(--gray-100);"></div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--gray-600);font-weight:300;">
+              <div class="num-badge" style="background:var(--teal-400);color:white;">1</div>
+              <span>1 conversation → 1 badge</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--gray-600);font-weight:300;">
+              <div class="num-badge" style="background:var(--teal-400);color:white;">4</div>
+              <span>4 conversations → 4 badge</span>
+            </div>
+          </div>
+          <div style="padding:10px 12px;background:var(--teal-50);border-radius:8px;">
+            <div style="font-size:12px;color:var(--teal-600);font-weight:400;line-height:1.5;">Badge = unique users with
+              unread messages, not total message count.</div>
+          </div>
+        </div>
+
+        <!-- Read receipts -->
+        <div class="component-card">
+          <div class="component-title">Read receipts</div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D3D1C7" stroke-width="2.5"
+                stroke-linecap="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <div>
+                <div style="font-size:13px;color:var(--gray-900);font-weight:400;">Sent</div>
+                <div style="font-size:11px;color:var(--gray-400);font-family:var(--font-mono);">#D3D1C7</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888780" stroke-width="2.5"
+                stroke-linecap="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <div>
+                <div style="font-size:13px;color:var(--gray-900);font-weight:400;">Delivered</div>
+                <div style="font-size:11px;color:var(--gray-400);font-family:var(--font-mono);">#888780</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2.5"
+                stroke-linecap="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <div>
+                <div style="font-size:13px;color:var(--gray-900);font-weight:500;">Read</div>
+                <div style="font-size:11px;color:var(--gray-400);font-family:var(--font-mono);">#1D9E75</div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="font-size:12px;color:var(--gray-400);font-weight:300;line-height:1.6;border-top:1px solid var(--gray-100);padding-top:12px;">
+            Shown on the last message in a group only — keeps the thread clean while still communicating status.</div>
+        </div>
+
+        <!-- Typing -->
+        <div class="component-card">
+          <div class="component-title">Typing indicator</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+            <div class="demo-avatar"
+              style="width:28px;height:28px;background:var(--blue-600);color:#E6F1FB;font-size:9px;">PS</div>
+            <div
+              style="display:flex;gap:4px;align-items:center;padding:10px 14px;background:var(--gray-50);border:1px solid var(--gray-100);border-radius:14px;border-bottom-left-radius:3px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--gray-200);"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--gray-200);"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--gray-200);"></div>
+            </div>
+            <span style="font-size:11px;color:var(--gray-400);font-family:var(--font-mono);">typing...</span>
+          </div>
+          <div style="font-size:12px;color:var(--gray-400);font-weight:300;line-height:1.6;">Three dot pill bubble. Tail
+            radius matches incoming bubble. Label appears inline to the right.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PRINCIPLES -->
+  <div class="principles-bg">
+    <div class="section principles-section">
+      <div class="section-tag">05 — Design Principles</div>
+      <h2 class="section-title">Four guiding principles</h2>
+      <div class="principles-grid">
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <div class="principle-title">Conversation-first</div>
+          <p class="principle-body">The interface recedes so the conversation breathes. No chrome competes with the
+            content of messages.</p>
+        </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <div class="principle-title">Mental model fidelity</div>
+          <p class="principle-body">Every UI signal maps to how users actually think. Badges count people, not messages.
+            Ticks communicate stages, not just delivery.</p>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <div class="principle-title">Scannable hierarchy</div>
+          <p class="principle-body">Grouped messages reduce repetitive avatars and timestamps. Users find what they need
+            in one pass, not after parsing every element.</p>
+        </div>
+        <div class="principle">
+          <div class="principle-num">04</div>
+          <div class="principle-title">Formal but warm</div>
+          <p class="principle-body">Professional without being cold. Light type weights, generous spacing, and a teal
+            success palette create approachability within structure.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SPACING -->
+  <div class="spacing-bg">
+    <div class="section">
+      <div class="section-tag">06 — Spacing System</div>
+      <h2 class="section-title">Spacing & layout</h2>
+      <p class="section-body">An 8px base grid. All spacing values are multiples of 4px — small components use 4–16px,
+        layout sections use 32–96px.</p>
+
+      <div style="margin-top:40px;">
+        <div class="spacing-row">
+          <div class="spacing-label">4px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:16px;"></div>
+          </div>
+          <div class="spacing-use">Icon padding · status dot border</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">8px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:32px;"></div>
+          </div>
+          <div class="spacing-use">Gap between avatar and bubble</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">12px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:48px;"></div>
+          </div>
+          <div class="spacing-use">Header icon gap · action bar items</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">16px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:64px;"></div>
+          </div>
+          <div class="spacing-use">Thread padding · header padding</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">24px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:96px;"></div>
+          </div>
+          <div class="spacing-use">Between message groups</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">48px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:200px;"></div>
+          </div>
+          <div class="spacing-use">Section horizontal padding</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">96px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:380px;"></div>
+          </div>
+          <div class="spacing-use">Section vertical padding</div>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+        <div
+          style="background:var(--gray-50);border:1px solid var(--gray-100);border-radius:12px;padding:20px;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--blue-600);">8px</div>
+          <div
+            style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400);margin-top:4px;">
+            Base unit</div>
+        </div>
+        <div
+          style="background:var(--gray-50);border:1px solid var(--gray-100);border-radius:12px;padding:20px;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--blue-600);">16px</div>
+          <div
+            style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400);margin-top:4px;">
+            Bubble radius</div>
+        </div>
+        <div
+          style="background:var(--gray-50);border:1px solid var(--gray-100);border-radius:12px;padding:20px;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--blue-600);">360px</div>
+          <div
+            style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400);margin-top:4px;">
+            Target width</div>
+        </div>
+        <div
+          style="background:var(--gray-50);border:1px solid var(--gray-100);border-radius:12px;padding:20px;text-align:center;">
+          <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--blue-600);">72%</div>
+          <div
+            style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400);margin-top:4px;">
+            Max bubble width</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">LinkedIn <span>Messaging</span><br>Redesign</div>
+        <div
+          style="font-family:var(--font-mono);font-size:10px;color:var(--gray-600);margin-top:8px;letter-spacing:1.5px;">
+          UX CASE STUDY · 2026</div>
+      </div>
+      <div class="footer-meta">
+        <div
+          style="color:var(--white); font-family:var(--font-display); font-weight:600; font-size:14px; margin-bottom:4px;">
+          Priyadarshani Shewale</div>
+        <div style="color:var(--gray-400);margin-bottom:12px;font-size:11px;">UX Designer & Product Thinker</div>
+        <div
+          style="color:var(--gray-600);margin-bottom:8px;font-size:10px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;">
+          Designed with Google Stitch</div>
+        <div class="footer-tags">
+          <span class="footer-tag">UX Design</span>
+          <span class="footer-tag">Mobile</span>
+          <span class="footer-tag">Messaging UI</span>
+          <span class="footer-tag">Product Design</span>
+          <span class="footer-tag">LinkedIn</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
